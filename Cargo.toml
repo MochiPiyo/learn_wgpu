@@ -1,0 +1,57 @@
+[package]
+name = "learn_wgpu"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+winit = "0.27"
+env_logger = "0.9"
+log = "0.4"
+wgpu = "0.14"
+
+#for async
+pollster = "0.2"
+
+#wasm
+cfg-if = "1"
+
+#for make buffer
+bytemuck = { version = "1.4", features = ["derive"] }
+
+#for error handling
+anyhow = "1.0"
+
+#for mathmatics of 3d render
+cgmath = "0.18"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+
+#これがないとpanicしたときに分からない
+console_error_panic_hook = "0.1.6"
+
+#ログを全てコンソールに流す
+console_log = "0.2.0"
+
+#webglは現在の互換性のためwebGPUはまだ。
+wgpu = { version = "0.14", features = ["webgl"]}
+
+#wasm本体
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4.30"
+
+#基本的なwebのAPI的なのを使えるようにする
+web-sys = { version = "0.3", features = [
+    "Document",
+    "Window",
+    "Element",
+]}
+
+[dependencies.image]
+version = "0.24"
+default-features = false
+features = ["png", "jpeg"]
